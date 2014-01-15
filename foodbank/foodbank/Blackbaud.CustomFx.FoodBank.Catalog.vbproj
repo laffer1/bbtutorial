@@ -160,6 +160,42 @@
   <ItemGroup>
     <EmbeddedResource Include="FoodBank.Page.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBankExpression.View.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="USR_UFN_FOODBANKSUMFOODITEMAMT.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBankTxHeader.DataList.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBankTxHeader.Add.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBankTXHeader.Edit.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBankTXHeaderDelete.RecordOperation.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBankTXDetailSummary.View.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBankTXDetail.DataList.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBankTXDetail.Add.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodItem.SimpleList.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBankTXDetail.Edit.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBankTXDetailDelete.RecordOperation.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

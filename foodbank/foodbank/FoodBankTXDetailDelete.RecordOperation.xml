@@ -1,0 +1,37 @@
+﻿<RecordOperationSpec 
+	xmlns="bb_appfx_recordoperation"
+	xmlns:common="bb_appfx_commontypes" 
+	ID="a044836f-6b35-4652-9728-4f9165a28819" 
+	Name="Food Bank Transaction Detail Delete LHOLT" 
+	Description="Delete Food Bank Transaction Detail"
+	Author="Technical Training"
+	OperationType="Delete"
+	RecordType="Food Bank TX Detail LHOLT"
+	common:SecurityUIFolder="Constituent\Food Bank LHOLT\Food Bank Transaction Header\Food Bank Transaction Detail"
+	>
+
+	<SPRecord>
+		<SPOperationImplementation SPName="USP_RECORDOPERATION_FOODBANKTXDETAILDELETE_LHOLT">
+			<common:CreateProcedureSQL>
+				<![CDATA[
+create procedure dbo.USP_RECORDOPERATION_FOODBANKTXDETAILDELETE_LHOLT
+(
+	@ID uniqueidentifier,
+	@CHANGEAGENTID uniqueidentifier
+)
+as begin
+	--check deletion rules, if any
+
+	-- use the system generated delete routine to allow proper recording of the deleting agent
+	exec USP_USR_FOODBANKTXDETAIL_DELETEBYID_WITHCHANGEAGENTID @ID, @CHANGEAGENTID
+	return 0;
+	
+end
+]]>
+</common:CreateProcedureSQL>
+</SPOperationImplementation>
+</SPRecord>
+<Prompt>
+<StandardPrompt Text="Are you sure you want to delete this Food Bank Transaction Detail?" />
+</Prompt>
+</RecordOperationSpec>

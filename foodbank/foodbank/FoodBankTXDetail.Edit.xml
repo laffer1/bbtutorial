@@ -11,20 +11,18 @@
 	FormHeader="Edit a Food Bank Transaction Detail"
 	>
 
-	<SPDataForm>
-
-		<!-- define the edit load SP, which is used to load the data for the form -->
-		<LoadImplementation SPName="USP_DATAFORMTEMPLATE_EDITLOAD_FOODBANKTXDETAIL_LHOLT">
-			<common:CreateProcedureSQL>
-				<![CDATA[
-create procedure dbo.USP_DATAFORMTEMPLATE_EDITLOAD_FOODBANKTXDETAIL_LHOLT
+  <SPDataForm>
+    <LoadImplementation SPName="USP_DATAFORMTEMPLATE_EDITLOAD_FOOD_BANK_TRANSACTION_DETAIL_LHOLT">
+      <common:CreateProcedureSQL>
+        <![CDATA[
+create procedure dbo.USP_DATAFORMTEMPLATE_EDITLOAD_FOOD_BANK_TRANSACTION_DETAIL_LHOLT
 (
     @ID uniqueidentifier,
     @DATALOADED bit = 0 output,
     @TSLONG bigint = 0 output,
-	@FIELD1 nvarchar(10) = null output,
-	@FIELD2 nvarchar(20) = null output,
-	@FIELD3 nvarchar(max) = null output
+    @FOODITEMID uniqueidentifier = null output,
+    @FOODITEMAMOUNT money = null output,
+    @QUANTITY smallint = null output
 )
 as
 
@@ -41,27 +39,26 @@ as
 	select
 		@DATALOADED = 1,
 		@TSLONG = TSLONG,
-		@FIELD1 = FIELD1,
-		@FIELD2 = FIELD2,
-		@FIELD3 = FIELD3		
-	from dbo.TABLE1
+        @FOODITEMID = FOODITEMID, 
+        @FOODITEMAMOUNT = FOODITEMAMOUNT, 
+        @QUANTITY = QUANTITY
+	from dbo.USR_FOODBANKTXDETAIL_LHOLT
 	where ID = @ID
 
 	return 0;
-				]]>
-			</common:CreateProcedureSQL>
-		</LoadImplementation>
-
-		<SaveImplementation SPName="USP_DATAFORMTEMPLATE_EDIT_FOODBANKTXDETAIL">
-			<common:CreateProcedureSQL>
-				<![CDATA[
-create procedure dbo.USP_DATAFORMTEMPLATE_EDIT_FOODBANKTXDETAIL 
+]]>
+      </common:CreateProcedureSQL>
+    </LoadImplementation>
+    <SaveImplementation SPName="USP_DATAFORMTEMPLATE_EDIT_FOOD_BANK_TRANSACTION_DETAIL_LHOLT">
+      <common:CreateProcedureSQL>
+        <![CDATA[
+create procedure dbo.USP_DATAFORMTEMPLATE_EDIT_FOOD_BANK_TRANSACTION_DETAIL_LHOLT
 (
 	@ID uniqueidentifier,
 	@CHANGEAGENTID uniqueidentifier = null,
-	@FIELD1 nvarchar(10),
-	@FIELD2 nvarchar(20),
-	@FIELD3 nvarchar(max)
+    @FOODITEMID uniqueidentifier,
+    @FOODITEMAMOUNT money,
+    @QUANTITY smallint
 )
 as
 
@@ -69,18 +66,15 @@ as
 
 	if @CHANGEAGENTID is null  
 		exec dbo.USP_CHANGEAGENT_GETORCREATECHANGEAGENT @CHANGEAGENTID output
-				
-	declare @CURRENTDATE datetime
-	set @CURRENTDATE = getdate()
-
+						
 	begin try
 		-- handle updating the data
-		update dbo.TABLE1 set
-			FIELD1 = @FIELD1,
-			FIELD2 = @FIELD2,
-			FIELD2 = @FIELD3,
+		update dbo.USR_FOODBANKTXDETAIL_LHOLT set
+            FOODITEMID = @FOODITEMID,
+            FOODITEMAMOUNT = @FOODITEMAMOUNT,
+            QUANTITY = @QUANTITY,
 			CHANGEDBYID = @CHANGEAGENTID,
-			DATECHANGED = @CURRENTDATE
+			DATECHANGED = getdate()
 		where ID = @ID
 	end try
 	begin catch
@@ -89,20 +83,30 @@ as
 	end catch
 
 return 0;
-				]]>
-			</common:CreateProcedureSQL>
-		</SaveImplementation>
+]]>
+      </common:CreateProcedureSQL>
+      <common:ExpectedDBExceptions>
+        <common:Constraints>
+          <common:Constraint Name="FK_USR_FOODBANKTXDETAIL_LHOLT_FOODITEMID" Field="FOODITEMID" Type="ForeignKey" />
+        </common:Constraints>
+      </common:ExpectedDBExceptions>
+    </SaveImplementation>
+  </SPDataForm>
+  <common:FormMetaData FixedDialog="true">
+    <common:FormFields>
+      <common:FormField FieldID="FOODITEMID" DataType="Guid" Required="true" Caption="Food Item">
+        <common:SimpleDataList SimpleDataListID="593F8647-C2B8-4E4F-8328-4B454EC6DB8C" EnableTypeAhead="true" />
+        </common:FormField>
+        <common:FormField FieldID="FOODITEMAMOUNT" DataType="Money" Caption="Food Item Amount" />
+      <common:FormField FieldID="QUANTITY" DataType="SmallInt" Caption="Quantity" DefaultValueText="1" />
+    </common:FormFields>
 
-	</SPDataForm>
+    <!-- Switching over to the default WebUI instad of the Win Form UI-->
+    <common:WebUIComponent>
+      <common:WebUI>
+        <common:DefaultWebUI/>
+      </common:WebUI>
+    </common:WebUIComponent>
 
-	<!-- describe fields on the form, which correspond to parameters on the SP.  Note that system paramters 
-	like the record ID, DATALOADED, TSLONG, and CURRENTAPPUSERID need not be listed. -->
-	<common:FormMetaData>
-		<common:FormFields>
-			<common:FormField FieldID="FIELD1" Caption="Field 1" DataType="String" MaxLength="10" />
-			<common:FormField FieldID="FIELD2" Caption="Field 2" DataType="String" MaxLength="20" />
-			<common:FormField FieldID="FIELD3" Caption="Field 3" DataType="String" />
-		</common:FormFields>
-	</common:FormMetaData>
-
+  </common:FormMetaData>
 </EditDataFormTemplateSpec>
