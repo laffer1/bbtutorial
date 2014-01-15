@@ -1,0 +1,33 @@
+﻿<TableSpec 
+	xmlns="bb_appfx_table"
+	xmlns:common="bb_appfx_commontypes" 
+	ID="764a5886-a927-4db5-934b-0da35bc2e852"
+	Name="Parking Permit"
+	Description="Manages constituent parking permits"
+	Author="Technical Training"
+	Tablename="USR_CONSTITUENTPARKINGPERMIT_LHOLT"		   
+	>
+
+	<!-- define fields on the table -->
+	<Fields>
+    <ForeignKeyField Name="CONSTITUENTID" ForeignTable="CONSTITUENT" Cardinality="OneToOne" Required="0"/>
+    <DateField Name="EXPIRATIONDATE" Description="Parking Permit Expiration Date" Required="1"/>
+    <ForeignKeyField Name="PARKINGPERMITISSUEDBYID" ForeignTable="CONSTITUENT" Cardinality="ManyToOne" Required="1" Description="The person who issued the parking permit."/>
+    <TextField Name="PASSNUMBER" Description="The business identifier for the parking permit." IsUnique="1" Required="1" Length="5"/>
+    <CodeTableField Name="PARKINGZONECOLORCODEID" CodeTable="USR_PARKINGZONECOLOR_LHOLT_CODE" Description="Parking Zone Color" Required="1"/>
+  </Fields>
+
+  <Indexes>
+    <Index>
+      <IndexFields>
+        <IndexField Name="CONSTITUENTID"/>
+      </IndexFields>
+    </Index>
+    <Index>
+      <IndexFields>
+        <IndexField Name="PARKINGPERMITISSUEDBYID"/>
+      </IndexFields>
+    </Index>
+  </Indexes>
+
+</TableSpec>

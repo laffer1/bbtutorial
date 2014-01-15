@@ -1,0 +1,11 @@
+﻿<CodeTableSpec 
+	xmlns="bb_appfx_codetable" 
+	xmlns:common="bb_appfx_commontypes"
+	ID="6e452c5e-1aeb-41e5-9c74-a9cccd470e80" 
+	Name="Parking Zone Color"
+	Description="Parking Zone Color Codes for constituent parking passes"
+	Author="Technical Training"
+	DBTablename="USR_PARKINGZONECOLOR_LHOLT_CODE"
+	Category="Parking Permit"
+	SortMethod="Alpha"
+/>

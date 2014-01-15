@@ -1,0 +1,86 @@
+﻿<AddDataFormTemplateSpec 
+	xmlns="bb_appfx_adddataformtemplate"
+	xmlns:common="bb_appfx_commontypes" 
+	ID="668cf410-8926-465b-8c58-8743c0c1afd2" 
+	Name="Food Bank Transaction Detail Add Form LHOLT"
+	Description="A data form for adding food bank t x detail records" 
+	Author="Techncial Training"
+	DataFormInstanceID="306b9c20-b155-490e-a138-5d5a82cc81f9" 
+	RecordType="Food Bank TX Detail LHOLT"
+	common:SecurityUIFolder="Constituent\Food Bank LHOLT\Food Bank Transaction Header\Food Bank Transaction Detail"
+	FormHeader="Add a Food Bank Transaction Detail"
+	>
+
+	<SPDataForm>
+	
+		<!-- describe the save SP -->
+		<SaveImplementation SPName="USP_DATAFORMTEMPLATE_ADD_FOOD_BANK_TRANSACTION_DETAIL_LHOLT">
+			<common:CreateProcedureSQL>
+				<![CDATA[
+create procedure dbo.USP_DATAFORMTEMPLATE_ADD_FOOD_BANK_TRANSACTION_DETAIL_LHOLT
+(
+    @ID uniqueidentifier = null output,
+    @CHANGEAGENTID uniqueidentifier = null,
+    @FOODBANKTXHEADERID uniqueidentifier,
+    @FOODITEMID uniqueidentifier,
+    @FOODITEMAMOUNT money = 0,
+    @QUANTITY smallint = 1
+)
+as
+
+set nocount on;
+
+if @ID is null
+    set @ID = newid()
+
+if @CHANGEAGENTID is null  
+    exec dbo.USP_CHANGEAGENT_GETORCREATECHANGEAGENT @CHANGEAGENTID output
+
+declare @CURRENTDATE datetime
+set @CURRENTDATE = getdate()
+
+begin try
+	-- handle inserting the data
+	insert into dbo.USR_FOODBANKTXDETAIL_LHOLT
+		(ID, FOODBANKTXHEADERID, FOODITEMID, FOODITEMAMOUNT, QUANTITY, ADDEDBYID, CHANGEDBYID, DATEADDED, DATECHANGED)
+    values
+		(@ID, @FOODBANKTXHEADERID, @FOODITEMID, @FOODITEMAMOUNT, @QUANTITY, @CHANGEAGENTID, @CHANGEAGENTID, @CURRENTDATE, @CURRENTDATE)
+end try
+
+begin catch
+    exec dbo.USP_RAISE_ERROR
+    return 1
+end catch
+
+return 0				
+
+]]>
+        </common:CreateProcedureSQL>
+        <common:ExpectedDBExceptions>
+          <common:Constraints>
+            <common:Constraint Name="FK_USR_FOODBANKTXDETAIL_FOODITEMID_LHOLT" Field="FOODITEMID" Type="ForeignKey" />
+          </common:Constraints>
+        </common:ExpectedDBExceptions>
+      </SaveImplementation>
+  </SPDataForm>
+
+  <Context ContextRecordType="Food Bank TX Header LHOLT" RecordIDParameter="FOODBANKTXHEADERID" />
+
+  <common:FormMetaData FixedDialog="true">
+    <common:FormFields>
+      <common:FormField FieldID="FOODITEMID" DataType="Guid" Required="true" Caption="Food Item">
+        <common:SimpleDataList SimpleDataListID="593F8647-C2B8-4E4F-8328-4B454EC6DB8C" EnableTypeAhead="true" />
+      </common:FormField>
+      <common:FormField FieldID="FOODITEMAMOUNT" DataType="Money" Caption="Food Item Amount" />
+      <common:FormField FieldID="QUANTITY" DataType="SmallInt" Caption="Quantity" DefaultValueText="1" />
+    </common:FormFields>
+
+    <!-- Switching over to the default WebUI instad of the Win Form UI-->
+    <common:WebUIComponent>
+      <common:WebUI>
+        <common:DefaultWebUI/>
+      </common:WebUI>
+    </common:WebUIComponent>
+
+  </common:FormMetaData>
+</AddDataFormTemplateSpec>

@@ -1,0 +1,41 @@
+﻿<RecordOperationSpec 
+	xmlns="bb_appfx_recordoperation"
+	xmlns:common="bb_appfx_commontypes" 
+	ID="bd61b400-1686-4180-a028-d228f233fe58" 
+	Name="Food Item Delete LHOLT" 
+	Description="Used to delete the given Food Item"
+	Author="Technical Training"
+	OperationType="Delete"
+	RecordType="Food Item LHOLT"
+	common:SecurityUIFolder="Constituent\Food Bank LHOLT\Food Item"
+  TimeOutSeconds="60"
+	>
+
+	<SPRecord>
+		<SPOperationImplementation SPName="USP_RECORDOPERATION_FOODITEMDELETE_LHOLT">
+			<common:CreateProcedureSQL>
+				<![CDATA[
+create procedure dbo.USP_RECORDOPERATION_FOODITEMDELETE_LHOLT
+(
+	@ID uniqueidentifier,
+	@CHANGEAGENTID uniqueidentifier
+)
+as begin
+	--check deletion rules, if any
+
+	-- use the system generated delete routine to allow proper recording of the deleting agent
+	exec USP_FOOD_ITEM_LHOLT_DELETEBYID_WITHCHANGEAGENTID @ID, @CHANGEAGENTID
+	return 0;
+	
+end
+				]]>
+			</common:CreateProcedureSQL>
+		</SPOperationImplementation>
+	</SPRecord>
+
+	<!-- optionally, offer a prompt before executing the record operation -->
+	<Prompt>
+		<StandardPrompt Text="Are you sure you want to delete this food item?" />
+	</Prompt>
+
+</RecordOperationSpec>

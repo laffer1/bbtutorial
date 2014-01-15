@@ -1,0 +1,59 @@
+﻿<SearchListSpec 
+    xmlns="bb_appfx_searchlist"
+    xmlns:common="bb_appfx_commontypes"
+    ID="95df503f-e240-4b31-8cde-dffaa6eb0c97"
+    Name="Food Bank Search"
+    Description="Search list of food banks"
+    Author="Technical Training"
+    RecordType="Food Bank LHOLT"
+    TranslationFunctionID="a68e16de-6a0e-450b-9df7-f514a688cabd"
+	>
+
+	<!-- describe the SP used to fetch the results from the given filters.  Note that the @MAXROWS parameter is required, and should be 
+	used to limit the number of rows returned to a reasonable number. -->
+	<SPSearchList SPName="USP_SEARCHLIST_FOODBANK_LHOLT">
+		<common:CreateProcedureSQL>
+			<![CDATA[
+create procedure dbo.USP_SEARCHLIST_FOODBANK_LHOLT
+(
+	@NAME nvarchar(100) = null,
+	@MAXROWS smallint = 500
+)
+as
+	set @NAME = COALESCE(@NAME,'') + '%' ;
+SELECT top(@MAXROWS)
+FB.ID,
+C.KEYNAME as NAME,
+FBTC.DESCRIPTION as FOODBANKTYPE
+FROM
+dbo.CONSTITUENT C
+INNER JOIN
+dbo.USR_FOODBANK_LHOLT FB on C.ID = FB.CONSTITUENTID
+LEFT JOIN
+dbo.USR_LHOLT_FOODBANKTYPECODE FBTC on FB.FOODBANKTYPECODEID = FBTC.ID
+WHERE
+C.KEYNAME like @NAME
+ORDER BY
+C.NAME asc
+			]]>
+		</common:CreateProcedureSQL>
+	</SPSearchList>
+
+	<!-- describe the filter fields for the search screen -->
+	<common:FormMetaData>
+		<common:FormFields>
+			<common:FormField FieldID="NAME" Caption="Name" DataType="String" MaxLength="100" />
+		</common:FormFields>
+	</common:FormMetaData>
+
+	<!-- also describe the output fields for the search screen -->
+  <Output TranslationField="Name">
+    <OutputFields>
+      <OutputField FieldID="ID" Caption="ID" DataType="Guid" IsHidden="true" />
+      <OutputField FieldID="NAME" Caption="Name" DataType="String" />
+      <OutputField FieldID="FOODBANKTYPE" Caption="Type" DataType="String" />
+    </OutputFields>
+  </Output>
+
+</SearchListSpec>
+

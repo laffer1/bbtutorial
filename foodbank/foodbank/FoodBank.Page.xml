@@ -1,0 +1,142 @@
+<PageDefinitionSpec 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    ID="2490b13f-3cf7-4c0c-8115-2a6a767d2abf"
+    Name="My First Food Bank Page LHOLT"
+    Description="Displays everything about a food bank"
+    Author="Technical Training"
+    ExpressionDataFormID="478b396f-1027-48a3-bc53-fcb4347de895"
+    ContextRecordType="Food Bank LHOLT"
+    xmlns="bb_appfx_pagedefinition"
+    >
+  <PageHeader Caption="= Page.Fields!FOODBANKORGNAME &amp; &quot; Food Bank&quot;" />
+  <SummarySection ID="bfa2a6fb-bc7e-4538-8f0d-b2d8927fffe3" Caption="Food Bank Summary">
+    <DataForm ID="3dfbe6a3-2a0f-4905-96c6-8cdb6770fa70" />
+    <SectionContext>
+      <PageContextID xmlns="bb_appfx_commontypes" />
+    </SectionContext>
+  </SummarySection>
+  <Tabs>
+    <Tab Caption="Food Items" ID="7bf4d0e8-a638-4248-b529-ae551529d2da">
+      <Sections>
+        <Section ID="da3c9220-fc57-408b-b6d7-be81eb3ee32b" Caption="Food Item List">
+          <DataList ID="6f17e253-0800-47a3-ba30-e5c30173c0a4">
+            <RenderStyle>
+              <StandardView />
+            </RenderStyle>
+          </DataList>
+          <SectionContext>
+            <PageContextID xmlns="bb_appfx_commontypes" />
+          </SectionContext>
+          <Actions>
+            <Action ID="8bce1677-f596-4db4-85ed-749155a1b621" Caption="Add" ImageKey="RES:newitem">
+              <ShowAddDataForm DataFormID="c902192d-ac2a-4ed4-b89c-f8acfc28ff30" xmlns="bb_appfx_commontypes">
+                <PostActionEvent>
+                  <RefreshSection />
+                </PostActionEvent>
+              </ShowAddDataForm>
+            </Action>
+            <Action ID="0221d5e1-8249-4cdb-a693-f42de7a12d12" Caption="Edit" ImageKey="RES:Edit">
+              <ShowDataForm DataFormID="9d7f433a-a421-446d-83cc-4c20c43c7aba" xmlns="bb_appfx_commontypes">
+                <ActionContext>
+                  <SectionField>ID</SectionField>
+                </ActionContext>
+                <PostActionEvent>
+                  <RefreshSection />
+                </PostActionEvent>
+              </ShowDataForm>
+            </Action>
+            <Action ID="43fe22a2-60b9-49a4-8351-3dce57caea60" Caption="Delete" ImageKey="Res:Delete">
+              <ExecuteRecordOperation RecordOperationID="bd61b400-1686-4180-a028-d228f233fe58" xmlns="bb_appfx_commontypes">
+                <ActionContext>
+                  <SectionField>ID</SectionField>
+                </ActionContext>
+                <PostActionEvent>
+                  <RefreshSection />
+                </PostActionEvent>
+              </ExecuteRecordOperation>
+            </Action>
+          </Actions>
+        </Section>
+      </Sections>
+    </Tab>
+    <Tab Caption="Food Bank Transactions" ID="a1b33d8b-081e-45f6-91c9-742909e42970">
+      <Sections>
+        <Section ID="1dce8c30-329e-4791-a4fc-8a39d76e2e7f" Caption="Transaction Header">
+          <DataList ID="9eb3371a-fc4f-45c8-8962-5b5cbdcfcbba">
+            <RenderStyle>
+              <StandardView />
+            </RenderStyle>
+          </DataList>
+          <SectionContext>
+            <PageContextID xmlns="bb_appfx_commontypes" />
+          </SectionContext>
+          <Actions>
+            <Action ID="169cae7d-6396-4d6f-a7ff-6705f143ac1c" Caption="Add">
+              <ShowAddDataForm DataFormID="8b340409-4e46-49ec-92c8-542ca0ed8d6e" xmlns="bb_appfx_commontypes">
+                <ActionContext>
+                  <PageContextID />
+                </ActionContext>
+                <PostActionEvent>
+                  <RefreshSection />
+                </PostActionEvent>
+              </ShowAddDataForm>
+            </Action>
+            <Action ID="5ccab83c-0174-4486-9423-36b39a12c44e" Caption="Edit">
+              <ShowDataForm DataFormID="86d1f13c-2f31-4b32-9423-70a96af6f949" xmlns="bb_appfx_commontypes">
+                <ActionContext>
+                  <SectionField>ID</SectionField>
+                </ActionContext>
+                <PostActionEvent>
+                  <RefreshPage />
+                </PostActionEvent>
+              </ShowDataForm>
+            </Action>
+            <Action ID="62e1f3b2-aabf-42b5-b9a9-b1b241d49eed" Caption="Delete">
+              <ExecuteRecordOperation RecordOperationID="3f964d78-11bf-42b7-b0bc-984f544801d4" xmlns="bb_appfx_commontypes">
+                <ActionContext>
+                  <SectionField>ID</SectionField>
+                </ActionContext>
+                <PostActionEvent>
+                  <RefreshPage />
+                </PostActionEvent>
+              </ExecuteRecordOperation>
+            </Action>
+          </Actions>
+        </Section>
+      </Sections>
+    </Tab>
+  </Tabs>
+  <PageActionGroups>
+    <PageActionGroup ID="92ff363e-86d7-4034-9db0-6a1e2973efe6" Caption="View As">
+      <Actions>
+        <Action ID="6b272def-c099-483c-b2c9-8fd8ec8b5c88" Caption="Constituent">
+          <ShowPage PageID="88159265-2b7e-4c7b-82a2-119d01ecd40f" TabID="00000000-0000-0000-0000-000000000000" SectionID="00000000-0000-0000-0000-000000000000" xmlns="bb_appfx_commontypes">
+            <ActionContext>
+              <PageContextID />
+            </ActionContext>
+          </ShowPage>
+          <HelpKey>CRMConstDataEntryHomePg.html</HelpKey>
+        </Action>
+      </Actions>
+    </PageActionGroup>
+    <PageActionGroup ID="a2996732-6b50-49cf-998d-49f6600ebcee" Caption="Tasks">
+      <Actions>
+        <Action ID="7ff52196-9c19-4f58-baed-0d5e24ee3c3f" Caption="Edit">
+          <ShowDataForm DataFormID="347ccc56-8d0c-4c58-994b-bb661f8149ae" xmlns="bb_appfx_commontypes">
+            <ActionContext>
+              <PageContextID />
+            </ActionContext>
+          </ShowDataForm>
+        </Action>
+        <Action ID="3ea820cf-5c8e-4703-bc1b-f37b385b3e4c" Caption="Delete">
+          <ExecuteRecordOperation RecordOperationID="16c0bff6-f2bd-45fb-95d8-c0624ccebd93" xmlns="bb_appfx_commontypes">
+            <ActionContext>
+              <PageContextID />
+            </ActionContext>
+          </ExecuteRecordOperation>
+        </Action>
+      </Actions>
+    </PageActionGroup>
+  </PageActionGroups>
+</PageDefinitionSpec>

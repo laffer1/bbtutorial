@@ -1,0 +1,25 @@
+<SimpleDataListSpec
+	xmlns="bb_appfx_simpledatalist"
+	xmlns:common="bb_appfx_commontypes"
+	ID="593F8647-C2B8-4E4F-8328-4B454EC6DB8C"
+	Name="Food Item Simple Data List LHOLT"
+	Description="Simple data list for food items."
+	Author="Technical Training"
+	>
+
+	<SPSimpleList SPName="USR_USP_SIMPLEDATALIST_FOODITEM_LHOLT">
+		<common:CreateProcedureSQL >
+			<![CDATA[
+create procedure dbo.USR_USP_SIMPLEDATALIST_FOODITEM_LHOLT as
+	select 
+		ID as VALUE, 
+		NAME as LABEL
+	from 
+		dbo.USR_FOODITEM_LHOLT
+	order by 
+		NAME
+			]]>
+		</common:CreateProcedureSQL>
+	</SPSimpleList>
+
+</SimpleDataListSpec>

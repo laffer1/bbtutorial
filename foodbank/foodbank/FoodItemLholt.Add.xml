@@ -1,0 +1,76 @@
+﻿<AddDataFormTemplateSpec 
+	xmlns="bb_appfx_adddataformtemplate"
+	xmlns:common="bb_appfx_commontypes" 
+	ID="61cb75f4-5994-4687-b7be-1eda2f19be4d" 
+	Name="Food Item LHOLT Add Form"
+	Description="Used for adding a new Food Items" 
+	Author="Technical Training"
+	DataFormInstanceID="c902192d-ac2a-4ed4-b89c-f8acfc28ff30" 
+	RecordType="Food Item LHOLT"
+	common:SecurityUIFolder="Constituent\Food Bank LHOLT\Food Item"
+	FormHeader="Add a food item lholt"
+	>
+
+	<SPDataForm>
+		
+		<!-- describe the save SP -->
+		<SaveImplementation SPName="USP_DATAFORMTEMPLATE_ADD_FOODITEMLHOLT">
+			<common:CreateProcedureSQL>
+				<![CDATA[
+create procedure dbo.USP_DATAFORMTEMPLATE_ADD_FOODITEMLHOLT
+(
+   @ID uniqueidentifier = null output,
+  @CHANGEAGENTID uniqueidentifier = null,
+  @NAME nvarchar(100),
+  @DESCRIPTION nvarchar(max) = '',
+  @CURRENTCOST money = 0.00,
+  @LOWINVENTORYTHRESHOLD smallint = 0,
+  @WEIGHT Decimal(10,2) = 0.00
+)
+as
+
+set nocount on;
+if @ID is null
+set @ID = newid()
+if @CHANGEAGENTID is null
+exec dbo.USP_CHANGEAGENT_GETORCREATECHANGEAGENT @CHANGEAGENTID output
+declare @CURRENTDATE datetime
+set @CURRENTDATE = getdate()
+
+begin try
+-- handle inserting the data
+insert into dbo.USR_FOODITEM_LHOLT
+(ID, NAME, DESCRIPTION, CURRENTCOST, LOWINVENTORYTHRESHOLD, WEIGHT,
+ADDEDBYID, CHANGEDBYID, DATEADDED, DATECHANGED)
+values
+(@ID, @NAME, @DESCRIPTION, @CURRENTCOST, @LOWINVENTORYTHRESHOLD, @WEIGHT,
+@CHANGEAGENTID, @CHANGEAGENTID, @CURRENTDATE, @CURRENTDATE)
+end try
+
+begin catch
+exec dbo.USP_RAISE_ERROR
+return 1
+end catch
+
+return 0				
+				]]>
+			</common:CreateProcedureSQL>
+		</SaveImplementation>
+	</SPDataForm>
+
+	<!-- describe the context ID for this form (if applicable), which corresponds to a parameter in the SP. -->
+	<!--<Context ContextRecordType="REPLACE_WITH_RECORDTYPE" RecordIDParameter="CONTEXTID"/>-->
+
+	<!-- describe fields on the form, which correspond to parameters on the SP.  Note that system parameters 
+	like the context @ID, @CONTEXTID, and @CURRENTAPPUSERID need not be listed. -->
+	<common:FormMetaData>
+		<common:FormFields>
+      <common:FormField FieldID="NAME" Required="true" MaxLength="100" Caption="Name" />
+      <common:FormField FieldID="DESCRIPTION" Caption="Description" />
+      <common:FormField FieldID="CURRENTCOST" DataType="Money" Caption="Current Cost" />
+      <common:FormField FieldID="LOWINVENTORYTHRESHOLD" DataType="SmallInt" Caption="Low Inventory Threshold" />
+      <common:FormField FieldID="WEIGHT" DataType="Decimal" Caption="Weight" DefaultValueText="0.00" Description="The weight of a food item."/>
+		</common:FormFields>
+	</common:FormMetaData>
+
+</AddDataFormTemplateSpec>

@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4689E25D-7FE3-43EC-9143-09569EA86FCB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Blackbaud.CustomFx.Foodbank.LHOLT.Catalog</RootNamespace>
+    <AssemblyName>Blackbaud.CustomFx.Foodbank.LHOLT.Catalog</AssemblyName>
+    <MyType>Windows</MyType>
+    <OptionStrict>Off</OptionStrict>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <OldToolsVersion>2.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRules>
+    </CodeAnalysisRules>
+    <CodeAnalysisRuleSet>Catalog.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>S:\BBEC\SandboxVroot\bbAppFx\vroot\bin</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+    <CodeAnalysisRuleSet>Catalog.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Blackbaud.AppFx.Server, Version=1.0.128.756, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Blackbaud.AppFx.XmlTypes, Version=1.0.128.756, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodItemAdd.Task.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Catalog.ruleset" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="USR_FOODBANK_LHOLT.Table.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="USR_LHOLT_FOODBANKTYPECODE.CodeTable.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="USR_FOODITEM_LHOLT.Table.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="USR_FOODBANKTXHEADER_LHOLT.Table.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="USR_FOODBANKTXDETAIL_LHOLT.Table.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodItemLholt.Add.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBankLholt.FunctionalArea.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\AddFoodItem.png" />
+    <EmbeddedResource Include="Images\bread-1.png" />
+    <EmbeddedResource Include="Images\bread.jpg" />
+    <EmbeddedResource Include="Images\facebook.png" />
+    <EmbeddedResource Include="Images\twitter16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBank.Package.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodItemLholt.Edit.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBankLholt.View.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="USR_UFN_FOODBANKSUMFOODITEMWEIGHT.xml" />
+    <EmbeddedResource Include="USR_UFN_FOODBANKTXFOODITEMAMT.xml" />
+    <EmbeddedResource Include="USR_UFN_FOODBANKTX_COUNT.xml" />
+    <EmbeddedResource Include="USR_UFN_FOODTXDETAIL_FOODITEM.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodItemDelete.RecordOperation.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodItem.DataList.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBank.Add.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBank.Edit.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBankDelete.RecordOperation.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBankAdd.Task.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBankView.Task.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBank.Search.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBank.Translation.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBankSearch.Task.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FoodBank.Page.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

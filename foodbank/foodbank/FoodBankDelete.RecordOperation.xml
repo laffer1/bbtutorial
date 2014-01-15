@@ -1,0 +1,40 @@
+﻿<RecordOperationSpec 
+	xmlns="bb_appfx_recordoperation"
+	xmlns:common="bb_appfx_commontypes" 
+	ID="16c0bff6-f2bd-45fb-95d8-c0624ccebd93" 
+	Name="Food Bank Delete Record Operation" 
+	Description="Used to delete the given food bank"
+	Author="Technical Training"
+	OperationType="Delete"
+	RecordType="Food Bank LHOLT"
+	common:SecurityUIFolder="Constituent\Food Bank LHOLT"
+	>
+
+	<SPRecord>
+		<SPOperationImplementation SPName="USP_RECORDOPERATION_FOODBANKDELETE_LHOLT">
+			<common:CreateProcedureSQL>
+				<![CDATA[
+create procedure dbo.USP_RECORDOPERATION_FOODBANKDELETE_LHOLT
+(
+	@ID uniqueidentifier,
+	@CHANGEAGENTID uniqueidentifier
+)
+as begin
+	--check deletion rules, if any
+
+	-- use the system generated delete routine to allow proper recording of the deleting agent
+	exec USP_USR_FOODBANK_LHOLT_DELETEBYID_WITHCHANGEAGENTID @ID, @CHANGEAGENTID
+	return 0;
+	
+end
+				]]>
+			</common:CreateProcedureSQL>
+		</SPOperationImplementation>
+	</SPRecord>
+
+	<!-- optionally, offer a prompt before executing the record operation -->
+	<Prompt>
+		<StandardPrompt Text="Deleting the food bank will delete all associated transaction header and detail records. Deleting the food bank will not delete the related organization constituent record. Are you sure you want to delete this food bank and associated transactions?" />
+	</Prompt>
+
+</RecordOperationSpec>

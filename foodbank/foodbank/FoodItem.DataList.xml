@@ -1,0 +1,55 @@
+﻿<DataListSpec 
+	xmlns="bb_appfx_datalist"
+	xmlns:common="bb_appfx_commontypes" 
+	ID="6f17e253-0800-47a3-ba30-e5c30173c0a4" 
+	Name="Food Item List LHOLT"
+	Description="Returns all Food Item records" 
+	Author="Technical Training"
+	common:SecurityUIFolder="Constituent\Food Bank LHOLT\Food Item"
+	>
+
+	<!-- define the SP that returns the data for the datalist -->
+	<SPDataList SPName="USP_DATALIST_FOODITEM_LHOLT">
+		<common:CreateProcedureSQL>
+			<![CDATA[
+create procedure dbo.USP_DATALIST_FOODITEM_LHOLT
+(
+	@NAME nvarchar(100) = null
+)
+as
+	set nocount on;
+select
+USR_FOODITEM_LHOLT.[ID],
+USR_FOODITEM_LHOLT.[NAME],
+USR_FOODITEM_LHOLT.[DESCRIPTION],
+USR_FOODITEM_LHOLT.[CURRENTCOST],
+USR_FOODITEM_LHOLT.[LOWINVENTORYTHRESHOLD],
+USR_FOODITEM_LHOLT.[WEIGHT]
+from
+dbo.USR_FOODITEM_LHOLT WHERE (@NAME is null or USR_FOODITEM_LHOLT.[NAME] LIKE '%' + @NAME + '%')
+]]>
+		</common:CreateProcedureSQL>
+	</SPDataList>
+
+	<!-- describe any parameters (other than the context ID) defined on the SP-->
+	<Parameters>
+		<common:FormMetaData>
+			<common:FormFields>
+				<common:FormField FieldID="NAME" Caption="Name" DataType="String"/>
+			</common:FormFields>
+		</common:FormMetaData>
+	</Parameters>
+
+	<!-- define the output fields in the list -->
+  <Output>
+    <OutputFields>
+      <OutputField FieldID="ID" Caption="ID" IsHidden="true" DataType="Guid" />
+      <OutputField FieldID="NAME" Caption="Name" DataType="String" />
+      <OutputField FieldID="DESCRIPTION" Caption="Description" DataType="String" />
+      <OutputField FieldID="CURRENTCOST" Caption="Current Cost" DataType="Money" />
+      <OutputField FieldID="LOWINVENTORYTHRESHOLD" Caption="Low Inventory Threshold" DataType="SmallInt" />
+      <OutputField FieldID="WEIGHT" Caption="Weight" DataType="Decimal" />
+    </OutputFields>
+  </Output>
+  
+</DataListSpec>

@@ -1,0 +1,64 @@
+﻿<DataListSpec 
+	xmlns="bb_appfx_datalist"
+	xmlns:common="bb_appfx_commontypes" 
+	ID="9eb3371a-fc4f-45c8-8962-5b5cbdcfcbba" 
+	Name="FOODBANKTXHEADER Data List LHOLT"
+	Description="Returns all Food Bank Transaction Header records for a given food bank." 
+	Author="Technical Training"
+	common:SecurityUIFolder="Constituent\Food Bank LHOLT\Food Bank Transaction Header"
+	>
+
+	<!-- define the SP that returns the data for the datalist -->
+	<SPDataList SPName="USP_DATALIST_FOODBANKTXHEADER_LHOLT">
+		<common:CreateProcedureSQL>
+			<![CDATA[
+create procedure dbo.USP_DATALIST_FOODBANKTXHEADER_LHOLT
+(
+@FOODBANKID uniqueidentifier
+,@TOTALAMOUNT money = null
+, @MAXROWS integer
+)
+as
+	set nocount on;
+
+SELECT     
+TOP(@MAXROWS)
+dbo.USR_FOODBANKTXHEADER_LHOLT.ID
+, dbo.USR_FOODBANKTXHEADER_LHOLT.TXDATE
+, dbo.CONSTITUENT.NAME as CONSTITUENTNAME
+, dbo.USR_FOODBANKTXHEADER_LHOLT.FOODBANKTXTYPE
+, dbo.USR_UFN_FOODBANKTXFOODITEMAMT_LHOLT(dbo.USR_FOODBANKTXHEADER_LHOLT.ID) AS TOTALAMOUNT
+, dbo.USR_FOODBANKTXHEADER_LHOLT.RECEIPTPRINTED
+FROM         dbo.USR_FOODBANKTXHEADER_LHOLT 
+INNER JOIN dbo.CONSTITUENT ON dbo.USR_FOODBANKTXHEADER_LHOLT.CONSTITUENTID = dbo.CONSTITUENT.ID 
+WHERE dbo.USR_FOODBANKTXHEADER_LHOLT.FOODBANKID = @FOODBANKID
+AND (@TOTALAMOUNT is null or dbo.USR_UFN_FOODBANKTXFOODITEMAMT_LHOLT(dbo.USR_FOODBANKTXHEADER_LHOLT.ID) > @TOTALAMOUNT )
+ORDER BY dbo.USR_FOODBANKTXHEADER_LHOLT.TXDATE, dbo.CONSTITUENT.NAME
+
+			]]>
+		</common:CreateProcedureSQL>
+	</SPDataList>
+
+	<!-- describe the context ID parameter for the SP (if applicable)-->
+  <Context ContextRecordType="Food Bank LHOLT" RecordIDParameter="FOODBANKID" />
+
+  <Parameters>
+    <common:FormMetaData>
+      <common:FormFields>
+        <common:FormField FieldID="TOTALAMOUNT" Caption="Amount" DataType="Money"/>
+      </common:FormFields>
+    </common:FormMetaData>
+  </Parameters>
+
+  <Output>
+    <OutputFields>
+      <OutputField FieldID="ID" Caption="ID" IsHidden="true" DataType="Guid" />
+      <OutputField FieldID="TXDATE" Caption="Tx Date" DataType="Date" />
+      <OutputField FieldID="CONSTITUENTNAME" Caption="Constituent Name" DataType="String" />
+      <OutputField FieldID="FOODBANKTXTYPE" Caption="Tx Type" DataType="String" />
+      <OutputField FieldID ="TOTALAMOUNT" Caption="Total Amt" DataType="Money"/>
+      <OutputField FieldID="RECEIPTPRINTED" Caption="Receipt Printed" DataType="Boolean" DisplayBooleanAsCheck="true" />
+    </OutputFields>
+  </Output>
+
+</DataListSpec>

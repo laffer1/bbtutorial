@@ -1,0 +1,88 @@
+﻿<AddDataFormTemplateSpec 
+	xmlns="bb_appfx_adddataformtemplate"
+	xmlns:common="bb_appfx_commontypes" 
+	ID="f7ad60a3-bfe1-4d24-9488-e31bba8077d3" 
+	Name="Food Bank Add Form LHOLT"
+	Description="Used for adding a new Food Bank." 
+	Author="Technical Training"
+	DataFormInstanceID="0ddbaf38-211e-485a-9e08-24ed68f377c3" 
+	RecordType="Food Bank LHOLT"
+	common:SecurityUIFolder="Constitnuent\Food Bank LHOLT"
+	FormHeader="Add a food bank"
+	>
+
+	<SPDataForm>
+		<!-- describe the save SP -->
+		<SaveImplementation SPName="USP_DATAFORMTEMPLATE_ADD_FOODBANK_LHOLT">
+			<common:CreateProcedureSQL>
+				<![CDATA[
+create procedure dbo.USP_DATAFORMTEMPLATE_ADD_FOODBANK_LHOLT
+(
+   @ID uniqueidentifier = null output,
+	  @CONSTITUENTID uniqueidentifier = null,
+    @CHANGEAGENTID uniqueidentifier = null,
+    @DESCRIPTION nvarchar(max) = '',
+    @MISSIONSTATEMENT nvarchar(max) = '',
+    @FOODBANKTYPECODEID uniqueidentifier = null
+
+)
+as
+
+set nocount on;
+
+--if @ID is null
+   set @ID = @CONSTITUENTID
+
+if @CHANGEAGENTID is null  
+    exec dbo.USP_CHANGEAGENT_GETORCREATECHANGEAGENT @CHANGEAGENTID output
+
+declare @CURRENTDATE datetime
+set @CURRENTDATE = getdate()
+
+begin try
+	-- handle inserting the data
+	insert into dbo.USR_FOODBANK_LHOLT
+		(ID, CONSTITUENTID, DESCRIPTION, MISSIONSTATEMENT, FOODBANKTYPECODEID, ADDEDBYID, CHANGEDBYID, DATEADDED, DATECHANGED)
+    values
+		(@CONSTITUENTID, @CONSTITUENTID, @DESCRIPTION, @MISSIONSTATEMENT, @FOODBANKTYPECODEID, @CHANGEAGENTID, @CHANGEAGENTID, @CURRENTDATE, @CURRENTDATE)
+
+   --set @ID = @CONSTITUENTID
+end try
+
+begin catch
+    exec dbo.USP_RAISE_ERROR
+    return 1
+end catch
+
+return 0					]]>
+			</common:CreateProcedureSQL>
+      <common:ExpectedDBExceptions>
+        <common:Constraints>
+          <common:Constraint Name="FK_USR_FOODBANK_LHOLT_FOODBANKTYPECODEID"
+                        Field="FOODBANKTYPECODEID" Type="ForeignKey" />
+        </common:Constraints>
+      </common:ExpectedDBExceptions>
+    </SaveImplementation>
+	</SPDataForm>
+
+	<!-- describe fields on the form, which correspond to parameters on the SP.  Note that system parameters 
+	like the context @ID, @CONTEXTID, and @CURRENTAPPUSERID need not be listed. -->
+  <common:FormMetaData FixedDialog="true" >
+    <common:FormFields>
+      <common:FormField FieldID="CONSTITUENTID" Caption="Constituent"  DataType="Guid" Required="true">
+        <common:SearchList SearchListID="ef1da4e7-0631-49de-bd60-7d084cb7cb2b" EnableQuickFind="true">
+          <common:FormFieldOverrides>
+            <common:FormFieldOverride FieldID ="ONLYPRIMARYADDRESS" DefaultValueText="False"/>
+          </common:FormFieldOverrides>
+        </common:SearchList>
+      </common:FormField>
+
+      <common:FormField FieldID="DESCRIPTION" Caption="Description" DataType="String" Multiline="true" />
+      <common:FormField FieldID="MISSIONSTATEMENT" DataType="String" Caption="Mission Statement" />
+      <common:FormField FieldID="FOODBANKTYPECODEID" DataType="Guid" Caption="Food Bank Type" Required="true">
+        <common:CodeTable CodeTableName="USR_LHOLT_FOODBANKTYPECODE" />
+      </common:FormField>
+    </common:FormFields>
+  </common:FormMetaData>
+    
+</AddDataFormTemplateSpec>

@@ -1,0 +1,26 @@
+﻿<TableSpec 
+	xmlns="bb_appfx_table"
+	xmlns:common="bb_appfx_commontypes" 
+	ID="8606ecdd-3b0c-490a-a783-1c0f2a51192c"
+	Name="Food Bank LHOLT"
+	Description="The food bank which holds food inventory."
+	Author="Technical Training"
+	Tablename="USR_FOODBANK_LHOLT"		   
+	IsBuiltIn="false">
+
+	<!-- define fields on the table -->
+	<Fields>
+    <ForeignKeyField Name="CONSTITUENTID" ForeignTable="CONSTITUENT"/>
+    <MemoField Name="DESCRIPTION" Description="A description for the food bank" />
+    <MemoField Name="MISSIONSTATEMENT" Description="The mission statement for the food bank" />
+    <CodeTableField Name="FOODBANKTYPECODEID" CodeTable="USR_LHOLT_FOODBANKTYPECODE" Required="false" Description="The type of food bank." />
+	</Fields>
+
+  <Indexes> 
+    <Index>
+    <IndexFields>
+      <IndexField Name="CONSTITUENTID" Direction="ASC"/>
+    </IndexFields>
+  </Index>
+  </Indexes>
+</TableSpec>

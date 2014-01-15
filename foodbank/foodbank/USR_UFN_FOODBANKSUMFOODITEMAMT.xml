@@ -1,0 +1,39 @@
+<SQLFunctionSpec
+	xmlns="bb_appfx_sqlfunction"
+	xmlns:common="bb_appfx_commontypes" 
+	ID="F4D5D3A6-8E29-4F6C-9950-48AF5823A142"
+	Name="USR_UFN_FOODBANKSUMFOODITEMAMT"
+	Description="USR_UFN_FOODBANKSUMFOODITEMAMT"
+	Author="Technical Training"
+	DBFunctionName="USR_UFN_FOODBANKSUMFOODITEMAMT_LHOLT"
+	>
+
+	<CreateFunctionSQL>
+		<![CDATA[
+CREATE FUNCTION [dbo].[USR_UFN_FOODBANKSUMFOODITEMAMT_LHOLT] 
+	(@FOODBANKID uniqueidentifier, @FOODBANKTXTYPECODE tinyint)
+
+RETURNS money
+with execute as caller
+AS
+BEGIN
+	-- Declare the return variable here
+	DECLARE @Result money
+
+	-- Add the T-SQL statements to compute the return value here
+	-- Add the SELECT statement with parameter references here
+	
+	SELECT     @Result=SUM(dbo.USR_FOODBANKTXDETAIL_LHOLT.LINEAMOUNT)
+	FROM dbo.USR_FOODBANKTXHEADER_LHOLT 
+	INNER JOIN dbo.USR_FOODBANKTXDETAIL_LHOLT ON dbo.USR_FOODBANKTXHEADER_LHOLT.ID = dbo.USR_FOODBANKTXDETAIL_LHOLT.FOODBANKTXHEADERID
+	WHERE   (dbo.USR_FOODBANKTXHEADER_LHOLT.FOODBANKID = @FOODBANKID) 
+		AND (dbo.USR_FOODBANKTXHEADER_LHOLT.FOODBANKTXTYPECODE = @FOODBANKTXTYPECODE)
+	
+	-- Return the result of the function
+	RETURN @Result
+
+END
+	]]>
+	</CreateFunctionSQL>
+
+</SQLFunctionSpec>

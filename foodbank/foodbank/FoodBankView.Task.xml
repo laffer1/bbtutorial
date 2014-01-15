@@ -1,0 +1,15 @@
+﻿<TaskSpec
+	xmlns="bb_appfx_task"
+	xmlns:common="bb_appfx_commontypes" 
+	ID="269286f2-fb26-4893-994f-98e6ed7c543c"
+	Name="View Food Banks"
+	Description="View Food Banks"
+	Author="Technical Training"
+	FunctionalAreaID="1f925787-f672-4cd4-9b2c-1c5b105f4c6b"
+	Sequence="1"
+	>
+
+	<!-- indicate what this task should do (navigate to a page, show a form, etc. -->
+	<common:ShowPage PageID="3dfbe6a3-2a0f-4905-96c6-8cdb6770fa70" />
+
+</TaskSpec>

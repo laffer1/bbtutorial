@@ -1,0 +1,20 @@
+﻿<TaskSpec
+	xmlns="bb_appfx_task"
+	xmlns:common="bb_appfx_commontypes" 
+	ID="c35d864c-217b-402f-951c-fb05c66c2fb1"
+	Name="Food Bank Search LHOLT"
+	Description="Task to open the food bank search."
+	Author="Technical Training"
+	FunctionalAreaID="1f925787-f672-4cd4-9b2c-1c5b105f4c6b"
+	Sequence="2"
+  ImageKey="RES:search"
+	>
+
+	<!-- indicate what this task should do (navigate to a page, show a form, etc. -->
+  <common:ShowPage PageID="2490b13f-3cf7-4c0c-8115-2a6a767d2abf">
+    <common:ActionContext>
+      <common:SearchListReturnValue SearchListID="95df503f-e240-4b31-8cde-dffaa6eb0c97"/>
+    </common:ActionContext>
+  </common:ShowPage>
+
+</TaskSpec>

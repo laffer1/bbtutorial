@@ -1,0 +1,38 @@
+﻿<RecordOperationSpec 
+	xmlns="bb_appfx_recordoperation"
+	xmlns:common="bb_appfx_commontypes" 
+	ID="3f964d78-11bf-42b7-b0bc-984f544801d4" 
+	Name="Food Bank Transaction Header Delete LHOLT" 
+	Description="Delete Food Bank Transaction Header"
+	Author="Technical Training"
+	OperationType="Delete"
+	RecordType="Food Bank TX Header LHOLT"
+	common:SecurityUIFolder="Constituent\Food Bank LHOLT\Food Bank Transaction Header"
+	>
+
+	<SPRecord>
+		<SPOperationImplementation SPName="USP_FOOD_BANK_TRANSACTION_HEADER_DELETE_LHOLT">
+			<common:CreateProcedureSQL>
+				<![CDATA[
+create procedure dbo.USP_FOOD_BANK_TRANSACTION_HEADER_DELETE_LHOLT
+(
+	@ID uniqueidentifier,
+	@CHANGEAGENTID uniqueidentifier
+)
+as begin
+	--check deletion rules, if any
+
+	-- use the system generated delete routine to allow proper recording of the deleting agent
+	exec USP_USR_FOODBANKTXHEADER_LHOLT_DELETEBYID_WITHCHANGEAGENTID @ID, @CHANGEAGENTID
+	return 0;
+	
+end
+]]>
+        </common:CreateProcedureSQL>
+      </SPOperationImplementation>
+    
+  </SPRecord>
+  <Prompt>
+    <StandardPrompt Text="Deleting this header will delete associated transaction detail records.  Are you sure you want to delete this Food Bank Transaction Header?" />
+  </Prompt>
+</RecordOperationSpec>

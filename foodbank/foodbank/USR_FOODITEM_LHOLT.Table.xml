@@ -1,0 +1,21 @@
+﻿<TableSpec 
+	xmlns="bb_appfx_table"
+	xmlns:common="bb_appfx_commontypes" 
+	ID="bce09dff-c4b8-4796-adff-f5f2735ccb57"
+	Name="Food Item LHOLT"
+	Description="Stores information about u s r_ f o o d i t e m_ l h o l t records"
+	Author="Technical Training"
+	Tablename="USR_FOODITEM_LHOLT"		   
+	IsBuiltIn="false"
+	>
+
+	<!-- define fields on the table -->
+	<Fields>
+    <TextField Name="NAME" Length="100" Required="true" IsUnique="true" Description="The name of the food item." />
+    <MemoField Name="DESCRIPTION" Description="A description for the food item"/>
+    <MoneyField Name="CURRENTCOST" DefaultValue="0.00" Description="The current value of the food item." />
+    <NumberField Name="LOWINVENTORYTHRESHOLD" Type="smallint" DefaultValue="0" Description="The level at which an alert should be provided when supplies are too low."/>
+    <DecimalField Name="WEIGHT" Scale="2" Precision="10" Description="The weight of a single food item." DefaultValue="0.00"/>
+	</Fields>
+
+</TableSpec>

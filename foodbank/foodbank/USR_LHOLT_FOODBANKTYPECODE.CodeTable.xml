@@ -1,0 +1,11 @@
+﻿<CodeTableSpec 
+	xmlns="bb_appfx_codetable" 
+	xmlns:common="bb_appfx_commontypes"
+	ID="c5fc084e-d5d8-44e5-8129-b945bd66eca0" 
+	Name="LHOLT Food Bank Type Code"
+	Description="Stores translations for u s r_ l h o l t_ f o o d b a n k t y p e c o d e codes"
+	Author="Technical Training"
+	DBTablename="USR_LHOLT_FOODBANKTYPECODE"
+	Category="USR_FOODBANK_LHOLT"
+	SortMethod="Alpha"
+/>

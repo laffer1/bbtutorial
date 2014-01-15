@@ -1,0 +1,21 @@
+﻿<TaskSpec
+	xmlns="bb_appfx_task"
+	xmlns:common="bb_appfx_commontypes" 
+	ID="ae13d924-9f64-4ab6-915d-8fbd507f4053"
+	Name="Add new Food Bank (lholt)"
+	Description="Add New Food Bank"
+	Author="Technical Training"
+	FunctionalAreaID="1f925787-f672-4cd4-9b2c-1c5b105f4c6b"
+	Sequence="5"
+	>
+
+	<!-- indicate what this task should do (navigate to a page, show a form, etc. -->
+  <common:ShowAddDataForm DataFormID="0ddbaf38-211e-485a-9e08-24ed68f377c3">
+    <common:PostActionEvent>
+      <common:GoToPage>
+        <common:SpecificPage PageID="2490b13f-3cf7-4c0c-8115-2a6a767d2abf" TabID="7bf4d0e8-a638-4248-b529-ae551529d2da"/>
+      </common:GoToPage>
+    </common:PostActionEvent>
+  </common:ShowAddDataForm>
+
+</TaskSpec>

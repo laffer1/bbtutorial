@@ -1,0 +1,48 @@
+﻿<DataListSpec
+  xmlns="bb_appfx_datalist"
+	xmlns:common="bb_appfx_commontypes" 
+	ID="dd964acc-d5c4-4483-9979-af3712555c90" 
+	Name="Food Bank Transaction Detail List LHOLT"
+	Description="A data form for viewing food bank t x detail records"
+	Author="Technical Training"
+	common:SecurityUIFolder="Constituent\Food Bank LHOLT\Food Bank Transaction Header\Food Bank Transaction Detail"
+	>
+
+	<!-- define the SP that returns the data used by the form -->
+	<SPDataList SPName="USP_DATALIST_FOOD_BANK_TRANSACTION_DETAIL_LHOLT">
+		<common:CreateProcedureSQL>
+			<![CDATA[
+create procedure dbo.USP_DATALIST_FOOD_BANK_TRANSACTION_DETAIL_LHOLT
+(@FOODBANKTXHEADERID uniqueidentifier)
+as
+	set nocount on;
+
+SELECT  FD.ID
+      ,FD.FOODBANKTXHEADERID
+      ,FD.FOODITEMID
+      ,FI.NAME as FOODITEMNAME
+      ,FD.FOODITEMAMOUNT
+      ,FD.QUANTITY
+      ,FD.LINEAMOUNT
+  FROM USR_FOODBANKTXDETAIL FD
+  INNER JOIN USR_FOODITEM FI ON FI.ID = FD.FOODITEMID
+  WHERE FD.FOODBANKTXHEADERID = @FOODBANKTXHEADERID
+]]>
+</common:CreateProcedureSQL>
+</SPDataList>
+
+<Context ContextRecordType="Food Bank TX Header LHOLT" RecordIDParameter="FOODBANKTXHEADERID" />
+
+<Output>
+  <OutputFields>
+    <OutputField FieldID="ID" Caption="ID" IsHidden="true" DataType="Guid" />
+    <OutputField FieldID="FOODBANKTXHEADERID" Caption="Foodbanktxheader" DataType="Guid" IsHidden="true"/>
+    <OutputField FieldID="FOODITEMID" Caption="Fooditem" DataType="Guid" IsHidden="true"/>
+    <OutputField FieldID="FOODITEMNAME" Caption="Food Item Name" DataType="String" />
+    <OutputField FieldID="FOODITEMAMOUNT" Caption="Food Item Amount" DataType="Money" />
+    <OutputField FieldID="QUANTITY" Caption="Quantity" DataType="SmallInt" />
+    <OutputField FieldID="LINEAMOUNT" Caption="Total" DataType="Money" />
+  </OutputFields>
+</Output>
+
+</DataListSpec>

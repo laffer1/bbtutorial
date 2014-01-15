@@ -1,0 +1,15 @@
+﻿<TaskSpec
+	xmlns="bb_appfx_task"
+	xmlns:common="bb_appfx_commontypes" 
+	ID="259433d2-c0bd-45f7-ac83-487313d540a2"
+	Name="Add a food item (lholt)"
+	Description="Adds a food item"
+	Author="Technical Training"
+	FunctionalAreaID="1f925787-f672-4cd4-9b2c-1c5b105f4c6b"
+	Sequence="10"
+	ImageKey="CATALOG:Blackbaud.CustomFx.FoodBank.Catalog.bread-1.png"
+	>
+
+  <common:ShowDataForm DataFormID="c902192d-ac2a-4ed4-b89c-f8acfc28ff30" />
+
+</TaskSpec>

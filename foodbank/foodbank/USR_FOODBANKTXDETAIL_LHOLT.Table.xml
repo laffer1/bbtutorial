@@ -1,0 +1,42 @@
+﻿<TableSpec 
+	xmlns="bb_appfx_table"
+	xmlns:common="bb_appfx_commontypes" 
+	ID="0b9cfd69-1754-486e-bae9-5947efcbcf6d"
+	Name="Food Bank TX Detail LHOLT"
+	Description="Stores information about u s r_ f o o d b a n k t x d e t a i l_ l h o l t records"
+	Author="Technical Training"
+	Tablename="USR_FOODBANKTXDETAIL_LHOLT"		   
+	IsBuiltIn="false"
+	>
+
+	<!-- define fields on the table -->
+	<Fields>
+    <ForeignKeyField Name="FOODBANKTXHEADERID" ForeignTable="USR_FOODBANKTXHEADER_LHOLT" Required="true" OnDelete="CascadeDelete" Cardinality="ManyToOne" />
+    <ForeignKeyField Name="FOODITEMID" ForeignTable="USR_FOODITEM_LHOLT" Required="true" OnDelete="CascadeDelete" Cardinality="ManyToOne"/>
+    <MoneyField Name="FOODITEMAMOUNT" Required="true" DefaultValue="0" Description="The amount of the food item at the time of the transaction. Defaults to the food item current cost." />
+    <NumberField Name="QUANTITY" Type="smallint" DefaultValue="1" Description="The number of food items donated." />
+    <ComputedColumnField Name="LINEAMOUNT" Expression="FOODITEMAMOUNT * QUANTITY"/>
+	</Fields>
+
+  <Indexes>
+    
+    <Index IsUnique="true">
+      <IndexFields>
+        <IndexField Name="FOODBANKTXHEADERID"/>
+        <IndexField Name="FOODITEMID"/>
+      </IndexFields>
+    </Index>
+    
+    <Index>
+      <IndexFields>
+        <IndexField Name="FOODBANKTXHEADERID"/>
+      </IndexFields>
+    </Index>
+    <Index>
+      <IndexFields>
+        <IndexField Name="FOODITEMID"/>
+      </IndexFields>
+    </Index>
+  </Indexes>
+
+</TableSpec>

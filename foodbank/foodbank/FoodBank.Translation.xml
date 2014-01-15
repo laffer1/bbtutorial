@@ -1,0 +1,34 @@
+﻿<TranslationFunctionSpec
+	xmlns="bb_appfx_translationfunction"
+	xmlns:common="bb_appfx_commontypes"
+	ID="a68e16de-6a0e-450b-9df7-f514a688cabd"
+	Name="Food Bank Translation Function LHOLT"
+	Description="Get the food bank's name."
+	Author="Technical Training"
+	RecordType="Food Bank LHOLT"
+	>
+
+	<SQLTranslationFunction FNName="UFN_TRANSLATIONFUNCTION_FOODBANK_LHOLT">
+		<common:CreateFunctionSQL>
+			<![CDATA[
+create function dbo.UFN_TRANSLATIONFUNCTION_FOODBANK_LHOLT
+(
+	@ID uniqueidentifier
+) 
+returns nvarchar(50) 
+as
+begin
+
+DECLARE @s nvarchar(50);
+SELECT
+@s = NAME
+FROM
+dbo.CONSTITUENT
+WHERE ID = @ID;
+RETURN @s;
+	end	
+			]]>
+		</common:CreateFunctionSQL>
+	</SQLTranslationFunction>
+
+</TranslationFunctionSpec>
